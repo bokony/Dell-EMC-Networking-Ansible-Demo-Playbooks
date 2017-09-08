@@ -1,0 +1,68 @@
+hostname: leaf-1 
+
+# Role Definitions
+# Configured Interface Parametors for Leaf Switches
+dellos_interface:
+   ethernet 1/1/1:
+     desc: "Link to Spine-1 - Configured by Ansible"
+     switchport: False
+     ip_and_mask:  192.168.1.1/31
+     admin: up
+   ethernet 1/1/2:
+     desc: "Link to Spine-2 - Configured by Ansible"
+     switchport: False
+     ip_and_mask: 192.168.2.1/31
+     admin: up
+   ethernet 1/1/3:
+     desc: "Link for Host Connection - Configured by Ansible"
+     switchport: True
+     mtu: 1600
+     admin: up
+
+   loopback 0:
+     ip_and_mask: 10.0.2.1/32
+     admin: up
+
+# Configured VLAN Parameters for Leaf Switches
+dellos_vlan:
+   vlan 200:
+     description: "Transport_VLAN_200"
+     untagged_members:
+       - port: ethernet 1/1/3 
+         state: present
+     state: present
+
+# BGP Configuration for Leaf Switches
+dellos_bgp:
+      asn: 64701
+      router_id:  10.0.2.1
+      maxpath_ibgp: 16
+      maxpath_ebgp: 16
+      graceful_restart: true
+      ipv4_network:
+         - address: 10.0.2.1/32
+           state: present
+         - address: 192.168.1.0/31
+           state: present
+         - address: 192.168.2.0/31
+           state: present
+      neighbor:
+         - ip: 192.168.1.0
+           type: ipv4
+           remote_asn: 64601
+           admin: up
+           state: present
+         - ip: 192.168.2.0
+           type: ipv4
+           remote_asn: 64602
+           admin: up
+           state: present
+      redistribute:
+         - route_type: static
+           address_type: ipv4
+           state: present
+         - route_type: connected
+           address_type: ipv4
+           state: present
+
+    

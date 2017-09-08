@@ -1,0 +1,27 @@
+---
+# Playbook to deploy leaf spine BGP Fabric
+# Developer - Bob Okony DellEMC Networking - SME - August 
+- hosts: dell-switches 
+  connection: local
+  gather_facts: false 
+  roles:
+     - Dell-Networking.dellos-interface
+     - Dell-Networking.dellos-system
+     - Dell-Networking.dellos-vlan
+     - Dell-Networking.dellos-bgp
+
+
+# Tasks to finalize the configuration
+  tasks:
+  - name: "Set the Host Name for the VM"
+    dellos10_config:
+      commands: ['hostname {{hostname}}']
+      provider: "{{cli}}"
+  - name: "Perform Commit to Startup"
+    dellos10_command:
+      commands: 
+        - commit
+        - copy running-configuration startup-configuration 
+      provider: "{{cli}}"
+
+     
