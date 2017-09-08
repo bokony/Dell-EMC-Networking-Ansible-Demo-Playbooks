@@ -1,0 +1,17 @@
+# Common variable
+
+dell_switch_cli_user: admin
+dell_switch_cli_pass: admin
+ansible_user: admin
+ansible_ssh_pass: admin
+ansible_connection: local
+
+gather_facts: no
+
+cli:
+  host: "{{ ansible_host }}"
+  username: "{{ dell_switch_cli_user }}"
+  password: "{{ dell_switch_cli_pass }}"
+  timeout: 90
+  port: 22
+  transport: cli

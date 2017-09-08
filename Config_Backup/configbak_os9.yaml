@@ -1,0 +1,12 @@
+---
+- hosts: OS9switches
+  connection: local
+  gather_facts: no
+
+  tasks:
+  - name: "Backup the Running Configuration from an OS9 Switch"
+    dellos9_config:
+      commands: ['do show run']
+      backup: true
+      provider: "{{ cli }}"
+

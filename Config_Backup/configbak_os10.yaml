@@ -1,0 +1,12 @@
+---
+- hosts: Spines 
+  connection: local
+  gather_facts: no
+
+  tasks:
+  - name: "Backup the Running Configuration from an OS10 Switch"
+    dellos10_config:
+      commands: ['show running-configuration']
+      backup: true
+      provider: "{{ cli }}"
+
