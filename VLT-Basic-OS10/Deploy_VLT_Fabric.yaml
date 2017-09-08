@@ -1,0 +1,49 @@
+---
+# Playbook to deploy basic VLT configuration using two switches in a VLT Pair
+# Developer - Bob Okony DellEMC Networking - SME - September 
+- hosts: dell-switches  
+  connection: local
+  gather_facts: false 
+  roles:
+     - Dell-Networking.dellos-interface
+     - Dell-Networking.dellos-system
+     - Dell-Networking.dellos-vlan
+     - Dell-Networking.dellos-lag
+     - Dell-Networking.dellos-vlt
+
+
+
+# Tasks to finalize the configuration
+  tasks:
+  - name: "Set the IP Address of VLAN for VLT-1"
+    dellos10_config:
+        commands:
+          - interface vlan 200
+          - "ip address {{vlt1_vlan}}"
+          - "vrrp-group {{vip_group}}"
+          - "virtual-address {{vip}}"
+          - exit
+        provider: "{{cli}}"
+    when: hostname == "VLT-1"
+  - name: "Set the IP Address of VLAN for VLT-2"
+    dellos10_config:
+        commands:
+          - interface vlan 200
+          - "ip address {{vlt2_vlan}}"
+          - "vrrp-group {{vip_group}}"
+          - "virtual-address {{vip}}"
+          - exit
+        provider: "{{cli}}"
+    when: hostname == "VLT-2"
+  - name: "Set the Host Name for the VM"
+    dellos10_config:
+      commands: ['hostname {{hostname}}']
+      provider: "{{cli}}"
+  - name: "Perform Commit to Startup"
+    dellos10_command:
+      commands: 
+        - commit
+        - copy running-configuration startup-configuration 
+      provider: "{{cli}}"
+
+     

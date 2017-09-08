@@ -1,0 +1,17 @@
+# Dell Active Fabric Switches - Inventory of Spines and Leafs 
+# Modify IP address to match switch Management Interface IP address
+
+[VLT]
+VLT-1 ansible_host=192.168.10.10 ansible_net_os_name=dellos10
+VLT-2 ansible_host=192.168.10.20 ansible_net_os_name=dellos10
+
+[Leafs]
+leaf-1 ansible_host=192.168.10.50 ansible_net_os_name=dellos10
+#leaf-2 ansible_host=192.168.10.60 ansible_net_os_name=dellos10
+
+
+# Groups
+[dell-switches:children]
+VLT
+Leafs
+

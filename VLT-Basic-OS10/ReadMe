@@ -1,0 +1,27 @@
+This playbook can be used to Deploy a simple VLT fabric on OS10 Enterprise Virtual Machines.  It prepares two VLT switches and one downstream switch referred to as leaf-1.   Management IP addresses are assigned manually for Ansible connectivity.  These addresses can be changed to inventory.yaml file.   Note - make sure to copy the ansible.cfg file into your working directly and modify appropriately to reflect the correct path for you environment.
+
+This configuration has been used with the following configuration
+
+Ubuntu 16.04 control machine for Ansible 
+Ansible Version - 2.3.2.0
+VM Workstation - 12.5.7 build-5813279
+OS10 Virtual Machine Version - 10.3.0E
+
+Dell Networking Roles have been installed on the Ubuntu host
+
+https://galaxy.ansible.com/Dell-Networking/
+
+Git Version - 2.7.4  
+
+Source updates have been complete using Git Local Repository.
+
+These files are intended to be used demonstration files for automation of DellEMC OS10 Networking devices.   The configuration is static and based on private IP addressing for interfaces on the virtual instances. 
+
+I have also incorporated common variables in the group_vars/dell-switches.yaml file.   These variables allow the vlan IP, VIP, and loopback addresses to be input and used across the VLT configuration.  This is simply an example of what can be accomplished using common variables to be used within the playbook.
+  
+
+Author - Bob Okony - DellEMC Networking SME 
+September 7th, 2017
+
+
+

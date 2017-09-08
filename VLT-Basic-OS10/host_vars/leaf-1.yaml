@@ -1,0 +1,40 @@
+hostname: leaf-1 
+
+# Role Definitions
+# Configured Interface Parametors for Leaf Switches
+dellos_interface:
+   ethernet 1/1/1:
+     desc: "Link to VLT-1 - Configured by Ansible"
+     switchport: False
+     admin: up
+   ethernet 1/1/2:
+     desc: "Link to VLT-2 - Configured by Ansible"
+     switchport: False
+     admin: up
+
+   loopback 0:
+     ip_and_mask: "{{leaf1_loopback}}"
+     admin: up
+
+# Port Channel Configuration Parameters 
+dellos_lag:
+   PO 10:
+     type: static
+     channel_members:
+       - port: ethernet 1/1/1
+         state: present
+       - port: ethernet 1/1/2
+         state: present
+     state: present
+
+# Configured VLAN Parameters for Leaf Switches
+dellos_vlan:
+   vlan 200:
+     description: "Common_VLAN_200_Configured_By_Ansible"
+     tagged_members:
+       - port: port-channel 10 
+         state: present
+     state: present
+
+
+    

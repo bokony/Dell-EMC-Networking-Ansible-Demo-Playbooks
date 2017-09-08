@@ -1,0 +1,55 @@
+hostname: VLT-1 
+
+# Role Definitions
+# Configured Interface Parameters for VLT Switches
+dellos_interface:
+   ethernet 1/1/1:
+     desc: "Link to Peer Switch  - Configured by Ansible"
+     switchport: False 
+     admin: up
+   ethernet 1/1/2:
+     desc: "Link to Peer Switch - Configured by Ansible"
+     switchport: False 
+     admin: up
+   ethernet 1/1/3:
+     desc: "VLT port channel member to Downstream Switch  - Configured by Ansible"
+     switchport: False
+     admin: up
+
+   loopback 0:
+     ip_and_mask: "{{vlt1_loopback}}"
+     admin: up
+
+# Configure VLT Port Channel for Connection to leaf-1
+dellos_lag:
+   Po 10:
+     type: static
+     channel_members:
+        - port: ethernet 1/1/3
+          state: present
+     state: present
+
+# Configure VLT paramaters for Primary Switch
+dellos_vlt:
+   domain: 1
+   system_mac: 0a:0b:0c:dd:ee:ff
+   discovery_intf: 1/1/1-1/1/2
+   vlt_peers:
+     Po 10:
+      peer_lag: 10
+   state: present
+
+# Configured VLAN Parameters for VLT Switches
+dellos_vlan:
+   vlan 200:
+     description: "Common_VLAN_200_Configured_By_Ansible"
+     tagged_members:
+       - port: ethernet 1/1/3 
+         state: present
+     state: present
+
+
+
+
+
+
