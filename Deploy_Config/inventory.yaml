@@ -1,0 +1,33 @@
+
+# Dell Active Fabric Switches - Inventory of Spines and Leafs 
+# Modify IP address to match switch Management Interface IP address
+
+[Spines]
+spine-1 ansible_host=192.168.10.10 ansible_net_os_name=dellos10
+spine-2 ansible_host=192.168.10.20 ansible_net_os_name=dellos10
+
+[Leafs]
+leaf-1 ansible_host=192.168.10.50 ansible_net_os_name=dellos10
+leaf-2 ansible_host=192.168.10.60 ansible_net_os_name=dellos10
+
+[OS9switches]
+S3048 ansible_host=192.168.50.120 ansible_net_os_name=dellos9
+S6000 ansible_host=192.168.1.80 ansible_net_os_name=dellos9
+
+[OS6switches]
+N3024P ansible_host=192.168.1.156 ansible_net_os_name=dellos6
+
+
+
+# Groups
+[dell-switches:children]
+Spines
+Leafs
+OS9switches
+OS6switches
+
+[backup-targets:children]
+Spines
+OS9switches
+
+

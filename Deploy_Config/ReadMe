@@ -1,0 +1,27 @@
+This playbook can be used to deploy a new file to the running-configuration file for OS9 machines.  The playbook names are self explanitory for the type of system they operate upon.  The playbook looks for a configuration file in the default directory that is named with the hostname.  Example - S6000.conf.   This is essentially a text file containing the new configuration that will be merged with the existing configuration.  Refer to the Ansible Dell OS9 Configuration module for details on using an SRC file and merging with the existing running-config file.   
+
+The intention of this playbook is to be used in conjunction with BMP for Dell OS9 switches.   BMP - Bare Metal Provisioning would initally load a base configuration file that would used to establish base functionality for Ansible communication.  Once deployed - this Ansible playbook could be used to push a finalized configuration to the switch which would prepare the switch to be placed into production.
+
+These playbooks has been successfully used with the following configuration
+
+Ubuntu 16.04 control machine for Ansible 
+Ansible Version - 2.3.2.0
+VM Workstation - 12.5.7 build-5813279
+OS9 Virtual Machine Version - 9.11
+
+
+Git Version - 2.7.4  
+
+Source updates have been completed using Git Local Repository.
+
+These files are intended to be used demonstration files for automation of DellEMC Networking devices.   The configuration is static and based on private IP addressing for interfaces on the virtual instances. 
+
+The inventory.yaml file will need to be updated to reflect the IP addresses of your local environment.  You may also choose to modify the host names.
+
+Note changes to the Ansible.cfg file to reflect the path to the inventory.yaml file.  Also modifications to the SSH Key paramenters have been changed.   It recommended to review these SSH key modifications to match your production system requirements if you choose to use these playbooks in your environment.  
+
+Author - Bob Okony - DellEMC Networking SME 
+October 22nd, 2017
+
+
+

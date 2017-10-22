@@ -1,0 +1,25 @@
+---
+- hosts: S6000 
+  connection: local
+  gather_facts: no
+
+  tasks:
+  - name: "Deploy a Configuration file to an OS9 Switch and save to Startup"
+    dellos9_config:
+       src: "{{hostname}}.conf"
+       provider: "{{ cli }}"
+       save: yes
+  - debug:
+      msg: "Complete the Deployment Meger to the Running Config"
+  - name: "Display Output of New Running Configuration File"
+    dellos9_command:
+       commands: ['show running-config | no-more']
+       provider: "{{ cli }}"
+    register: show 
+  - debug: var=show.stdout_lines[0] 
+  
+
+  
+
+
+
