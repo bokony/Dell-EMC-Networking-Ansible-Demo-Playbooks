@@ -1,0 +1,16 @@
+# BEGIN VLAN Info for Switch S6000-3
+Codes: * - Default VLAN, G - GVRP VLANs, R - Remote Port Mirroring VLANs, P - Primary, C - Community, I - Isolated
+       O - Openflow, Vx - Vxlan
+Q: U - Untagged, T - Tagged
+   x - Dot1x untagged, X - Dot1x tagged
+   o - OpenFlow untagged, O - OpenFlow tagged
+   G - GVRP tagged, M - Vlan-stack
+   i - Internal untagged, I - Internal tagged, v - VLT untagged, V - VLT tagged
+
+    NUM    Status    Description                     Q Ports
+*   1      Inactive                                  U Fo 0/8
+    100    Inactive  VLAN 100 Created by Ansible Pl  T Fo 0/8
+    200    Inactive  VLAN 200 Created by Ansible Pl  T Fo 0/8
+    300    Inactive  VLAN 300 Created by Ansible Pl  T Fo 0/8
+    400    Inactive  VLAN 400 Created by Ansible Pl  T Fo 0/8
+# END VLAN Info for Switch S6000-3

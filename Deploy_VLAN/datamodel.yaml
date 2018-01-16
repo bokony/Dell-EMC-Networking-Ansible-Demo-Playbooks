@@ -1,0 +1,19 @@
+---
+
+# List of variables to be used across all switches
+
+# Dictionary List of VLANs to be create on the switches
+
+- vlans:
+   - id: 100
+     desc: "VLAN 100 Created by Ansible Playbook"
+   - id: 200
+     desc: "VLAN 200 Created by Ansible Playbook"
+   - id: 300
+     desc: "VLAN 300 Created by Ansible Playbook"
+   - id: 400
+     desc: "VLAN 400 Created by Ansible Playbook"
+
+
+- interface_id: fortyGigE 0/8
+

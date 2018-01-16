@@ -1,0 +1,10 @@
+---
+
+cli:
+  host: "{{ ansible_host }}"
+  username: "{{ dell_switch_cli_user }}"
+  password: "{{ dell_switch_cli_pass }}"
+  authorize: yes
+  auth_pass: "{{ dell_switch_auth_pass }}"
+
+

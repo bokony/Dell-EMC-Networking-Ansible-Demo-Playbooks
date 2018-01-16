@@ -1,0 +1,52 @@
+---
+- hosts: switches
+  connection: local
+  vars_files:
+    - passwords.yaml
+    - datamodel.yaml
+
+  gather_facts: no
+
+  tasks:
+  - name: Prepare Interface State - Set up Layer 2 Mode
+    dellos9_config:
+      lines:
+        - portmode hybrid 
+        - switchport
+        - no shut
+        - exit
+      provider: "{{cli}}"
+      parents: "interface {{interface_id}}" 
+
+  - name: Create VLAN on the OS9 Switches
+    dellos9_config:
+      lines:
+        - "interface vlan {{item.id}}"
+        - "description {{item.desc}}"
+        - no shut
+        - do wr
+        - exit
+      provider: "{{cli}}"
+    with_items: "{{vlans}}"
+
+  - name: Tag the Interface to Newly Create VLAN
+    dellos9_config:
+      lines:
+        - "interface vlan {{item.id}}" 
+        - "tagged {{interface_id}}"
+        - do wr 
+        - exit
+      provider: "{{cli}}"
+    with_items: "{{vlans}}"
+
+  - name: Validate Creation of VLANs
+    dellos9_command:
+      commands: ['show vlan']
+      provider: "{{cli}}"
+    register: show_vlan
+  - debug: var=show_vlan
+  - blockinfile:
+      path:  ./{{inventory_hostname}}.vlans.txt
+      create: yes
+      marker: "# {mark} VLAN Info for Switch {{ inventory_hostname }}"
+      block: "{{show_vlan.stdout[0]}}"

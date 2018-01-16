@@ -1,0 +1,27 @@
+This playbook can be used to deploy VLANs on Dell OS9 switches.  The project uses an external datamodel.yaml file that contains the VLAN IDs and Descriptions to be deployed.   The intent is to provide a basic yaml file that will supply data to Ansible Playbook.  This approach is more appropriate for production automation, allowing the playbook to operate on different input data supplied by a network administrator.  Also, this keeps tha configuration details out of the Ansible Playbook task.  This project also uses an external file to supply login and enable credentials to the playbook for access to the switches in inventory.  Again this would be a more realistic approach for a production deployment. Refer to the Ansible Dell OS9 Configuration module for details on using the details contained in create_vlans_os9.yaml Ansible Playbook.   
+
+The intention of this playbook is to be used to automate the deployment of VLANs to OS9 switches contained in the Ansible inventory.yaml file.    Once the VLANs are created the interface(s) contained in the datamodel.yaml file will be tagged to the in the newly created VLANs.  The playbook also provides a method to validate the deployment of the newly created VLANs.  This step is accomplished by creating an output file for switches accessed by the playbook.  The output file contains the the output of the "show vlan" command for each switch.  Review the files with the .txt extention to see an example of the output.
+
+This playbooks has been successfully used with the following configuration
+
+Ubuntu 16.04 control machine for Ansible 
+Ansible Version - 2.3.2.0
+VM Workstation - 14.1.1 build-7528167
+OS9 Virtual Machine Version - 9.11
+
+
+Git Version - 2.7.4  
+
+Source updates have been completed using Git Local Repository.
+
+These files are intended to be used demonstration files for automation of DellEMC Networking devices.   The configuration is static and based on private IP addressing for interfaces on the virtual instances. Modification of the datamodel.yaml and passwords.yaml file should completed to match the requirements for your lab environment.
+
+The inventory.yaml file will need to be updated to reflect the IP addresses of your local environment.  You may also choose to modify the host names.
+
+Note changes to the Ansible.cfg file to reflect the path to the inventory.yaml file.  Also modifications to the SSH Key paramenters have been changed.   It recommended to review these SSH key modifications to match your production system requirements if you choose to use these playbooks in your environment.  
+
+Author - Bob Okony - DellEMC Networking SME 
+January 15th, 2018
+
+
+
