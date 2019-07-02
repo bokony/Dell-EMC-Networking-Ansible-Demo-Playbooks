@@ -1,0 +1,25 @@
+This playbook can be used to capture the current version from OS10 Switches.  The playbook will create an output file in the local directory and write out the switch IP address, OS Version Number and OS Version (Enterprise or OPen).  The file name designated in the playbook is call ShowVer_Report.txt. Modification of the file name and path can be done within the playbook.  The playbook names are self explanitory for the type of system they operate upon.  
+
+These playbooks has been successfully used with the following configuration
+
+Ubuntu 18.04.1 control machine for Ansible 
+Ansible Version - 2.8.1
+VM Workstation - 15.1.0 build-13591040
+OS10 Virtual Machine Version - 10.4.3E
+
+
+Git Version - 2.17.1 
+
+Source updates have been completed using Git Local Repository.
+
+These files are intended to be used demonstration files for automation of DellEMC Networking devices.   The configuration is static and based on private IP addressing for interfaces on the virtual instances. 
+
+The inventory.yaml file will need to be updated to reflect the IP addresses of your local environment.  You may also choose to modify the host names.
+
+Note changes to the Ansible.cfg file to reflect the path to the inventory.yaml file.  Also modifications to the SSH Key paramenters have been changed.   It recommended to review these SSH key modifications to match your production system requirements if you choose to use these playbooks in your environment.  
+
+Author - Bob Okony - DellEMC Networking Advisory Systems Engineer 
+July 2nd, 2019
+
+
+
